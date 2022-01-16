@@ -100,7 +100,7 @@ class Pin(object):
         self._value = 0
         self.init(mode, pull=setup)
         # self._info("Pin init finished.")
-        
+
     def check_board_type(self):
         type_pin = self.dict()["BOARD_TYPE"]
         GPIO.setup(type_pin, GPIO.IN)
@@ -205,5 +205,5 @@ if __name__ == "__main__":
     mcu_reset = Pin("MCURST")
     mcu_reset.off()
     time.sleep(0.001)
-    mcu_reset.on() 
-    time.sleep(0.01) 
+    mcu_reset.on()
+    time.sleep(0.01)

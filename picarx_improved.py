@@ -1,4 +1,7 @@
+import logging
+from logdecorator import log_on_start , log_on_end , log_on_error
 import time
+import atexit
 try:
     from ezblock import *
     from ezblock import __reset_mcu__
@@ -7,18 +10,20 @@ try:
 except ImportError:
     print ("This computer does not appear to be a PiCar -X system (ezblock is not present). Shadowing hardware calls with substitute functions ")
     from sim_ezblock import *
-from servo import Servo
-from pwm import PWM
-from pin import Pin
-from adc import ADC
-from filedb import fileDB
-import time
+# from servo import Servo
+#from pwm import PWM
+#from pin import Pin
+# from adc import ADC
+# from filedb import fileDB
+# import time
 
-
+logging_format = "%( asctime)s: %( message)s"
+# logging.basicConfig(format=logging_format , level=logging.INFO , datefmt ="%H:%M:%S")
+logging.getLogger ().setLevel(logging.DEBUG)
 
 class Picarx(object):
     PERIOD = 4095
-    PRESCALER = 10
+    PRESCALER = 1 # was 10 earlier
     TIMEOUT = 0.02
 
     def __init__(self):
@@ -53,9 +58,13 @@ class Picarx(object):
         for pin in self.motor_speed_pins:
             pin.period(self.PERIOD)
             pin.prescaler(self.PRESCALER)
+        logging.debug("initialised")
 
 
 
+    # @log_on_start(logging.DEBUG , " Message when function starts ")
+    # @log_on_error(logging.DEBUG , "Message when function encounters an error before completing ")
+    # @log_on_end(logging.DEBUG , "Message when function ends successfully {result!r}")
     def set_motor_speed(self,motor,speed):
         # global cali_speed_value,cali_dir_value
         motor -= 1
@@ -73,6 +82,7 @@ class Picarx(object):
         else:
             self.motor_direction_pins[motor].low()
             self.motor_speed_pins[motor].pulse_width_percent(speed)
+
 
     def motor_speed_calibration(self,value):
         # global cali_speed_value,cali_dir_value
@@ -101,6 +111,8 @@ class Picarx(object):
         self.config_flie.set("picarx_dir_servo", "%s"%value)
         self.dir_servo_pin.angle(value)
 
+
+
     def set_dir_servo_angle(self,value):
         # global dir_cal_value
         self.dir_current_angle = value
@@ -110,12 +122,14 @@ class Picarx(object):
         # print("set_dir_servo_angle_2:",dir_cal_value)
         self.dir_servo_pin.angle(angle_value)
 
+
     def camera_servo1_angle_calibration(self,value):
         # global cam_cal_value_1
         self.cam_cal_value_1 = value
         self.config_flie.set("picarx_cam1_servo", "%s"%value)
         print("cam_cal_value_1:",self.cam_cal_value_1)
         self.camera_servo_pin1.angle(value)
+
 
     def camera_servo2_angle_calibration(self,value):
         # global cam_cal_value_2
@@ -124,11 +138,13 @@ class Picarx(object):
         print("picarx_cam2_servo:",self.cam_cal_value_2)
         self.camera_servo_pin2.angle(value)
 
+
     def set_camera_servo1_angle(self,value):
         # global cam_cal_value_1
         self.camera_servo_pin1.angle(-1*(value + -1*self.cam_cal_value_1))
         # print("self.cam_cal_value_1:",self.cam_cal_value_1)
         print((value + self.cam_cal_value_1))
+
 
     def set_camera_servo2_angle(self,value):
         # global cam_cal_value_2
@@ -143,9 +159,11 @@ class Picarx(object):
         adc_value_list.append(self.S2.read())
         return adc_value_list
 
+
     def set_power(self,speed):
         self.set_motor_speed(1, speed)
         self.set_motor_speed(2, speed)
+
 
     def backward(self,speed):
         current_angle = self.dir_current_angle
@@ -189,7 +207,6 @@ class Picarx(object):
         self.set_motor_speed(1, 0)
         self.set_motor_speed(2, 0)
 
-
     def Get_distance(self):
         timeout=0.01
         trig = Pin('D8')
@@ -217,12 +234,16 @@ class Picarx(object):
         return cm
 
 
-if __name__ == "__main__":
-    px = Picarx()
-    px.forward(50)
-    time.sleep(1)
-    px.stop()
-    # set_dir_servo_angle(0)
+# if __name__ == "__main__":
+#     px = Picarx()
+#     set_dir_servo_angle(0)
+#     px.forward(50)
+#     time.sleep(1)
+#     px.stop()
+#
+#     atexit.register(px.stop)
+#     atexit.register(print, "Exited")
+#     # set_dir_servo_angle(0)
     # time.sleep(1)
     # self.set_motor_speed(1, 1)
     # self.set_motor_speed(2, 1)
