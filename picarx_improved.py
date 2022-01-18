@@ -1,3 +1,7 @@
+"""import sys
+sys.path.append(r'/home/nidhi/picar-x/lib')
+"""
+
 import logging
 from logdecorator import log_on_start , log_on_end , log_on_error
 import time
@@ -30,7 +34,7 @@ class Picarx(object):
         self.dir_servo_pin = Servo(PWM('P2'))
         self.camera_servo_pin1 = Servo(PWM('P0'))
         self.camera_servo_pin2 = Servo(PWM('P1'))
-        self.config_flie = fileDB('/home/pi/.config')
+        self.config_flie = fileDB('/home/nidhi/.config')
         self.dir_cal_value = int(self.config_flie.get("picarx_dir_servo", default_value=0))
         self.cam_cal_value_1 = int(self.config_flie.get("picarx_cam1_servo", default_value=0))
         self.cam_cal_value_2 = int(self.config_flie.get("picarx_cam2_servo", default_value=0))
@@ -184,6 +188,10 @@ class Picarx(object):
             self.set_motor_speed(1, -1*speed)
             self.set_motor_speed(2, speed)
 
+
+    @log_on_start(logging.DEBUG , " Please make way, the car is starting to move ")
+    @log_on_error(logging.DEBUG , "Oops! the Car got stuck ")
+    @log_on_end(logging.DEBUG , "Task completed! thank You {result!r}")
     def forward(self,speed):
         current_angle = self.dir_current_angle
         if current_angle != 0:
@@ -234,13 +242,13 @@ class Picarx(object):
         return cm
 
 
-# if __name__ == "__main__":
-#     px = Picarx()
-#     set_dir_servo_angle(0)
-#     px.forward(50)
-#     time.sleep(1)
-#     px.stop()
-#
+if __name__ == "__main__":
+    px = Picarx()
+    px.set_dir_servo_angle(0)
+    px.forward(50)
+    time.sleep(1)
+    px.stop()
+
 #     atexit.register(px.stop)
 #     atexit.register(print, "Exited")
 #     # set_dir_servo_angle(0)
