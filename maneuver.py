@@ -26,12 +26,12 @@ def parallelPark(px, dir):
     px.stop()
     px.set_dir_servo_angle(30*flag)
     time.sleep(1)
-    px.backward(10)
-    time.sleep(.5)
-    px.set_dir_servo_angle(-30*flag)
+    px.backward(30)
     time.sleep(1)
-    px.backward(10)
-    time.sleep(.5)
+    px.set_dir_servo_angle(-30*flag)
+    time.sleep(3)
+    px.backward(30)
+    time.sleep(1)
     px.stop()
 
 def Kturning(px,dir):
@@ -59,7 +59,7 @@ def Kturning(px,dir):
 
 if __name__ == "__main__":
     px = Picarx()
-    px.dir_servo_angle_calibration(0)
+    px.dir_servo_angle_calibration(10)
     px.set_dir_servo_angle(0)
 
     atexit.register(px.stop)
