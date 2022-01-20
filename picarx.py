@@ -1,6 +1,4 @@
 # from ezblock import Servo,PWM,fileDB,Pin,ADC
-import sys
-sys.path.append('/home/nidhi/RoboticSystems/lib')
 from servo import Servo 
 from pwm import PWM
 from pin import Pin

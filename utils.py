@@ -1,4 +1,5 @@
 # from .ble import BLE
+
 import time
 import os
 import re
@@ -10,8 +11,8 @@ mcu_reset = mcu_reset = Pin("MCURST")
 def reset_mcu():
     mcu_reset.off()
     time.sleep(0.001)
-    mcu_reset.on() 
-    time.sleep(0.1)  
+    mcu_reset.on()
+    time.sleep(0.1)
 # ble = BLE()
 
 # ble.write('NAME+ezb-RPi')
@@ -80,7 +81,7 @@ def ezblock_update():
         return True
     else:
         return error
-    
+
 def mapping(x, in_min, in_max, out_min, out_max):
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
 

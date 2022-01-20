@@ -1,5 +1,4 @@
-import sys
-sys.path.append('/home/nidhi/RoboticSystems/lib')
+
 import logging
 
 import time

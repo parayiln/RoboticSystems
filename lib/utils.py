@@ -1,6 +1,5 @@
 # from .ble import BLE
-import sys
-sys.path.append('/home/nidhi/RoboticSystems/lib')
+
 import time
 import os
 import re
