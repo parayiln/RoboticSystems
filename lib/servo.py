@@ -15,7 +15,7 @@ class Servo(object):
 
     def map(self, x, in_min, in_max, out_min, out_max):
         return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min
-
+        
     # angle ranges -90 to 90 degrees
     def angle(self, angle):
         if not (isinstance(angle, int) or isinstance(angle, float)):
@@ -39,6 +39,6 @@ def test():
     s0 = Servo(p)
     s0.debug = "debug"
     s0.angle(90)
-
+    
 if __name__ == "__main__":
     test()

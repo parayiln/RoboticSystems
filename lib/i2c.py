@@ -14,19 +14,19 @@ class I2C(object):
     def _i2c_write_byte(self, addr, data):   # i2C 写系列函数
         # self._debug("_i2c_write_byte: [0x{:02X}] [0x{:02X}]".format(addr, data))
         return self._smbus.write_byte(addr, data)
-
+    
     def _i2c_write_byte_data(self, addr, reg, data):
         # self._debug("_i2c_write_byte_data: [0x{:02X}] [0x{:02X}] [0x{:02X}]".format(addr, reg, data))
         return self._smbus.write_byte_data(addr, reg, data)
-
+    
     def _i2c_write_word_data(self, addr, reg, data):
         # self._debug("_i2c_write_word_data: [0x{:02X}] [0x{:02X}] [0x{:04X}]".format(addr, reg, data))
         return self._smbus.write_word_data(addr, reg, data)
-
+    
     def _i2c_write_i2c_block_data(self, addr, reg, data):
         # self._debug("_i2c_write_i2c_block_data: [0x{:02X}] [0x{:02X}] {}".format(addr, reg, data))
         return self._smbus.write_i2c_block_data(addr, reg, data)
-
+    
     def _i2c_read_byte(self, addr):   # i2C 读系列函数
         # self._debug("_i2c_read_byte: [0x{:02X}]".format(addr))
         return self._smbus.read_byte(addr)
@@ -45,7 +45,7 @@ class I2C(object):
     def scan(self):                             # 查看有哪些i2c设备
         cmd = "i2cdetect -y %s" % self._bus
         _, output = self.run_command(cmd)          # 调用basic中的方法，在linux中运行cmd指令，并返回运行后的内容
-
+        
         outputs = output.split('\n')[1:]        # 以回车符为分隔符，分割第二行之后的所有行
         # self._debug("outputs")
         addresses = []
@@ -123,7 +123,7 @@ class I2C(object):
             raise ValueError("memery write require arguement of bytearray, list, int less than 0xFF")
         # print(data_all)
         self._i2c_write_i2c_block_data(addr, memaddr, data_all)
-
+    
     def mem_read(self, data, addr, memaddr, timeout=5000, addr_size=8):     # 读取数据
         if isinstance(data, int):
             num = data
@@ -133,11 +133,11 @@ class I2C(object):
             return False
         result = bytearray(self._i2c_read_i2c_block_data(addr, memaddr, num))
         return result
-
+    
     def readfrom_mem_into(self, addr, memaddr, buf):
         buf = self.mem_read(len(buf), addr, memaddr)
         return buf
-
+    
     def writeto_mem(self, addr, memaddr, data):
         self.mem_write(data, addr, memaddr)
 
