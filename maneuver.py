@@ -17,7 +17,7 @@ def inLine(px,dir,ang):
         flag=-1
 
 def parallelPark(px, dir):
-    px.dir_servo_angle_calibration(0)
+
     if dir =='1':
         flag=-1
     elif dir =='2':
@@ -32,8 +32,7 @@ def parallelPark(px, dir):
     px.backward(30)
     time.sleep(1.)
     px.stop()
-    px.dir_servo_angle_calibration(0)
-    px.set_dir_servo_angle(-20*flag)
+    px.set_dir_servo_angle(-25*flag)
     time.sleep(.01)
     px.backward(30)
     time.sleep(1)
