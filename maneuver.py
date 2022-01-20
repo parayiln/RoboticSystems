@@ -7,9 +7,9 @@ def inLine(px,dir,ang):
     # px.dir_servo_angle_calibration(0)
     px.set_dir_servo_angle(int(ang))
     if dir =='1':
-        flag=-1
+        px.forward(30)
     elif dir =='2':
-        flag=1
+        px.backward(30)
     else:
         print("No direction chosen the car will turn left")
         flag=-1
@@ -59,7 +59,7 @@ def Kturning(px,dir):
 
 if __name__ == "__main__":
     px = Picarx()
-    px.dir_servo_angle_calibration(10)
+    px.dir_servo_angle_calibration(3)
     px.set_dir_servo_angle(0)
 
     atexit.register(px.stop)
@@ -69,7 +69,7 @@ if __name__ == "__main__":
         print("plase select an action: a- straight line, b -parking, c- K turning or d- exit the code")
         choice=input()
         if choice=="a":
-            print("Plese Select : 1 for left , 2 for right")
+            print("Plese Select : 1 for forward , 2 for back")
             dir=input()
             print("please enter an angle")
             angle=input()
