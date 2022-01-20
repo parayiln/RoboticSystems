@@ -9,12 +9,16 @@ def inLine(px,dir,ang):
     if dir =='1':
         px.forward(30)
         time.sleep(3)
+        px.stop()
     elif dir =='2':
         px.backward(30)
         time.sleep(3)
+        px.stop()
     else:
-        print("No direction chosen the car will turn left")
-        flag=-1
+        print("No direction chosen the car will move forward")
+        px.forward(30)
+        time.sleep(3)
+        px.stop()
 
 def parallelPark(px, dir):
 
@@ -40,7 +44,7 @@ def parallelPark(px, dir):
     px.set_dir_servo_angle(0)
     time.sleep(1)
     px.forward(40)
-    time.sleep(.5)
+    time.sleep(.1)
     px.stop()
 
 def Kturning(px,dir):
