@@ -39,7 +39,10 @@ def parallelPark(px, dir):
     time.sleep(1)
     px.stop()
     time.sleep(1)
+    px.set_dir_servo_angle(0)
     time.sleep(1)
+    px.forward(15)
+    time.sleep(.5)
     px.stop()
 
 def Kturning(px,dir):
