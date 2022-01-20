@@ -8,14 +8,16 @@ def inLine(px,dir,ang):
     px.set_dir_servo_angle(int(ang))
     if dir =='1':
         px.forward(30)
+        time.sleep(3)
     elif dir =='2':
         px.backward(30)
+        time.sleep(3)
     else:
         print("No direction chosen the car will turn left")
         flag=-1
 
 def parallelPark(px, dir):
-    # px.dir_servo_angle_calibration(0)
+    px.dir_servo_angle_calibration(0)
     if dir =='1':
         flag=-1
     elif dir =='2':
@@ -35,7 +37,7 @@ def parallelPark(px, dir):
     px.stop()
 
 def Kturning(px,dir):
-    # px.dir_servo_angle_calibration(0)
+    px.dir_servo_angle_calibration(0)
     if dir =='1':
         flag=-1
     elif dir =='2':
@@ -59,7 +61,7 @@ def Kturning(px,dir):
 
 if __name__ == "__main__":
     px = Picarx()
-    px.dir_servo_angle_calibration(3)
+    px.dir_servo_angle_calibration(0)
     px.set_dir_servo_angle(0)
 
     atexit.register(px.stop)
