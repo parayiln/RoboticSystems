@@ -27,12 +27,17 @@ def parallelPark(px, dir):
         flag=-1
     px.stop()
     px.set_dir_servo_angle(30*flag)
+    px.stop()
     time.sleep(1)
     px.backward(30)
+    time.sleep(1)
+    px.stop()
     time.sleep(1)
     px.set_dir_servo_angle(-30*flag)
-    time.sleep(3)
+    time.sleep(1)
     px.backward(30)
+    px.stop()
+    time.sleep(1)
     time.sleep(1)
     px.stop()
 
