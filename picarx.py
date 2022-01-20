@@ -1,5 +1,5 @@
 # from ezblock import Servo,PWM,fileDB,Pin,ADC
-from servo import Servo
+from servo import Servo 
 from pwm import PWM
 from pin import Pin
 from adc import ADC
@@ -17,7 +17,7 @@ class Picarx(object):
         self.dir_servo_pin = Servo(PWM('P2'))
         self.camera_servo_pin1 = Servo(PWM('P0'))
         self.camera_servo_pin2 = Servo(PWM('P1'))
-        self.config_flie = fileDB('/home/nidhi/.config')
+        self.config_flie = fileDB('/home/pi/.config')
         self.dir_cal_value = int(self.config_flie.get("picarx_dir_servo", default_value=0))
         self.cam_cal_value_1 = int(self.config_flie.get("picarx_cam1_servo", default_value=0))
         self.cam_cal_value_2 = int(self.config_flie.get("picarx_cam2_servo", default_value=0))
@@ -137,7 +137,7 @@ class Picarx(object):
 
     def set_power(self,speed):
         self.set_motor_speed(1, speed)
-        self.set_motor_speed(2, speed)
+        self.set_motor_speed(2, speed) 
 
     def backward(self,speed):
         current_angle = self.dir_current_angle
@@ -146,7 +146,7 @@ class Picarx(object):
             # if abs_current_angle >= 0:
             if abs_current_angle > 40:
                 abs_current_angle = 40
-            power_scale = (100 - abs_current_angle) / 100.0
+            power_scale = (100 - abs_current_angle) / 100.0 
             print("power_scale:",power_scale)
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, -1*speed)
@@ -156,7 +156,7 @@ class Picarx(object):
                 self.set_motor_speed(2, speed )
         else:
             self.set_motor_speed(1, -1*speed)
-            self.set_motor_speed(2, speed)
+            self.set_motor_speed(2, speed)  
 
     def forward(self,speed):
         current_angle = self.dir_current_angle
@@ -165,7 +165,7 @@ class Picarx(object):
             # if abs_current_angle >= 0:
             if abs_current_angle > 40:
                 abs_current_angle = 40
-            power_scale = (100 - abs_current_angle) / 100.0
+            power_scale = (100 - abs_current_angle) / 100.0 
             print("power_scale:",power_scale)
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, speed)
@@ -175,7 +175,7 @@ class Picarx(object):
                 self.set_motor_speed(2, -1*speed )
         else:
             self.set_motor_speed(1, speed)
-            self.set_motor_speed(2, -1*speed)
+            self.set_motor_speed(2, -1*speed)                  
 
     def stop(self):
         self.set_motor_speed(1, 0)
@@ -225,8 +225,8 @@ if __name__ == "__main__":
 
 # if __name__ == "__main__":
 #     try:
-#         # dir_servo_angle_calibration(-10)
+#         # dir_servo_angle_calibration(-10) 
 #         while 1:
 #             test()
-#     finally:
+#     finally: 
 #         stop()
