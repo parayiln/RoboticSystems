@@ -32,7 +32,7 @@ logging.getLogger ().setLevel(logging.DEBUG)
 
 class Picarx(object):
     PERIOD = 4095
-    PRESCALER = 1 # was 10 earlier
+    PRESCALER = 10 # was 10 earlier
     TIMEOUT = 0.02
 
     def __init__(self):
@@ -83,7 +83,7 @@ class Picarx(object):
             direction = -1 * self.cali_dir_value[motor]
         speed = abs(speed)
         if speed != 0:
-            speed = int(speed /2 ) + 50
+            speed = speed
         speed = speed - self.cali_speed_value[motor]
         if direction < 0:
             self.motor_direction_pins[motor].high()
