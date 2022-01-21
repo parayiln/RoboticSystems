@@ -31,5 +31,10 @@ class Controller(object):
  # automatic steering
 
 if __name__=='__main__':
+    sense = Sensing()
+    print("Welcoem to week 3 coding")
+    while (True):
+        print(sense.Sensing())
+
  # sensor control integration
  # camera based driving

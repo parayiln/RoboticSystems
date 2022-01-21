@@ -1,4 +1,4 @@
-
+#week 2
 import logging
 
 import time

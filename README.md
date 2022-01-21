@@ -2,8 +2,9 @@ Installation:
 Install logdecorator : sudo pip3 install logdecorator
 Install the picar-x libs using the link https://docs.sunfounder.com/projects/picar-x/en/latest/download_and_run_code.html
 
+*****************************************
 Week 2 codes Modifications
-
+*********************************************
 picarx_improved.py :
 - contains both ezblock packages and shadow environment.
 (sim_ezblock  is the setup for shadow envt)
@@ -21,3 +22,9 @@ maneuver.py:
 motor_command.py
 - Similar to picarx_improved.py with only the functions related to the motor commands but changed all the calibration related global variable to local.
 - Tested this code and worked fine.
+
+************************************************
+Week 3 codes Modifications
+*********************************************
+
+sensing_control.py
