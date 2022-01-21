@@ -56,15 +56,15 @@ def Kturning(px,dir):
     else:
         print("No direction chosen the car will turn left")
         flag=-1
-    px.set_dir_servo_angle(60*flag)
+    px.set_dir_servo_angle(30*flag)
     px.forward(40)
     time.sleep(2)
     px.stop()
-    px.set_dir_servo_angle(-60*flag)
+    px.set_dir_servo_angle(-30*flag)
     px.backward(40)
     time.sleep(1.8)
     px.stop()
-    px.set_dir_servo_angle(60*flag)
+    px.set_dir_servo_angle(3 0*flag)
     px.forward(40)
     time.sleep(2)
     px.stop()
