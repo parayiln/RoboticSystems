@@ -25,10 +25,10 @@ class ProcessData(object):
 
     #return the position
 
-
-class Controller(object):
-    def __init__(self):
- # automatic steering
+# 
+# class Controller(object):
+#     def __init__(self):
+#  # automatic steering
 
 if __name__=='__main__':
     sense = Sensing()
