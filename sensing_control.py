@@ -25,13 +25,13 @@ class ProcessData(object):
 
     #return the position
 
-# 
+#
 # class Controller(object):
 #     def __init__(self):
 #  # automatic steering
 
 if __name__=='__main__':
-    sense = Sensing()
+    sense = Sensing(950)
     print("Welcoem to week 3 coding")
     while (True):
         print(sense.Sensing())
