@@ -27,7 +27,7 @@ logging.getLogger ().setLevel(logging.DEBUG)
 
 class Picarx(object):
     PERIOD = 4095
-    PRESCALER = 1
+    PRESCALER = 10
     TIMEOUT = 0.02
 
     def __init__(self):

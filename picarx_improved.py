@@ -83,7 +83,8 @@ class Picarx(object):
             direction = -1 * self.cali_dir_value[motor]
         speed = abs(speed)
         # if speed != 0:
-        #     speed = speed
+        #     speed = int(speed /2 ) + 50
+        #
         speed = speed - self.cali_speed_value[motor]
         if direction < 0:
             self.motor_direction_pins[motor].high()
@@ -249,6 +250,7 @@ class Picarx(object):
 
 if __name__ == "__main__":
     px = Picarx()
+    px.dir_servo_angle_calibration(0)
     px.set_dir_servo_angle(0)
     px.forward(50)
     time.sleep(1)

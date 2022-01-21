@@ -64,9 +64,9 @@ def Kturning(px,dir):
     px.backward(40)
     time.sleep(1.8)
     px.stop()
-    px.set_dir_servo_angle(3 0*flag)
+    px.set_dir_servo_angle(15*flag)
     px.forward(40)
-    time.sleep(2)
+    time.sleep(1)
     px.stop()
 
 
