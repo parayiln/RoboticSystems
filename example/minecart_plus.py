@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'/home/pi/picar-x/lib')
+sys.path.append(r'/home/nidhi/RoboticSystems/lib')
 from utils import reset_mcu
 reset_mcu()
 from grayscale_module import Grayscale_Module
@@ -22,18 +22,18 @@ if __name__=='__main__':
 
         if gm_status == 'forward':
             print(1)
-            px.forward(px_power) 
+            px.forward(px_power)
 
         elif gm_status == 'left':
             px.set_dir_servo_angle(12)
-            px.forward(px_power) 
+            px.forward(px_power)
 
         elif gm_status == 'right':
             px.set_dir_servo_angle(-12)
-            px.forward(px_power) 
+            px.forward(px_power)
         else:
             px.set_dir_servo_angle(0)
             px.stop()
-  
+
   finally:
       px.stop()
