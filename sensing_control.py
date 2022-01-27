@@ -89,13 +89,19 @@ class Controller(Interpretation):
         self.scaling_factor=10
         self.motor =motor_command.Picarx()
 
+    def control(self, angle):
+        angle_steer =self.motor.set_dir_servo_angle(v)
+        return angle_steer
 # function for control - sensing integration
     def move(self):
         distance=self.infer.Processing()
+        self.control(distance*self.scaling_factor)
+        delay(10)
         self.motor.forward(30)
-        v=int(self.scaling_factor*distance)
-        angle_steer =self.motor.set_dir_servo_angle(v)
-        return angle_steer
+        delay(10)
+
+
+
 
 
  # automatic steering
@@ -107,6 +113,7 @@ if __name__=='__main__':
     control= Controller(infer)
     while (True):
         control.move()
+
 
  # sensor control integration
  # camera based driving
