@@ -89,7 +89,7 @@ class Controller(Interpretation):
         self.scaling_factor=10
         self.motor =motor_command.Picarx()
 
-
+# function for control - sensing integration
     def move(self):
         distance=self.infer.Processing()
         self.motor.forward(30)
