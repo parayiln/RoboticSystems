@@ -90,15 +90,15 @@ class Controller(Interpretation):
         self.motor =motor_command.Picarx()
 
     def control(self, angle):
-        angle_steer =self.motor.set_dir_servo_angle(v)
+        angle_steer =self.motor.set_dir_servo_angle(angle)
         return angle_steer
 # function for control - sensing integration
     def move(self):
         distance=self.infer.Processing()
         self.control(distance*self.scaling_factor)
-        delay(10)
+        time.sleep(.5)
         self.motor.forward(30)
-        delay(10)
+        time.sleep(.5)
 
 
 
