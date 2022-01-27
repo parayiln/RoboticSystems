@@ -118,14 +118,8 @@ class Picarx(object):
         # print("set_dir_servo_angle_1:",angle_value)
         # print("set_dir_servo_angle_2:",dir_cal_value)
         self.dir_servo_pin.angle(angle_value)
+        return angle_value
 
-
-    # def get_adc_value(self):
-    #     adc_value_list = []
-    #     adc_value_list.append(self.S0.read())
-    #     adc_value_list.append(self.S1.read())
-    #     adc_value_list.append(self.S2.read())
-    #     return adc_value_list
 
     def set_power(self,speed):
         self.set_motor_speed(1, speed)
@@ -176,6 +170,7 @@ class Picarx(object):
 
     def cleanup(self):
         self.stop()
+        print("excited code")
 
 
 

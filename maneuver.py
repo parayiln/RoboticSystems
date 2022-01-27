@@ -2,7 +2,6 @@
 import picarx_improved
 from picarx_improved import Picarx
 import time
-import atexit
 
 def inLine(px,dir,ang):
     # px.dir_servo_angle_calibration(0)
@@ -76,8 +75,6 @@ if __name__ == "__main__":
     px.dir_servo_angle_calibration(0)
     px.set_dir_servo_angle(0)
 
-    atexit.register(px.stop)
-    atexit.register(print, "Exited")
     while("True"):
         ########## code for maneuvering ###########
         print("plase select an action: a- straight line, b -parking, c- K turning or d- exit the code")
