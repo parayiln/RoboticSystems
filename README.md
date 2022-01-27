@@ -30,3 +30,20 @@ Week 3 codes Modifications
 Made the changes suggested in the code review
 
 sensing_control.py
+
+Run this code to make the car follow a line either using the grayscale module (this is an IR sensor, works best for a back color line vs a lighter color or vise versa) or a camera.
+
+Following is a brief description of the code, feel free to skip if you can understand the code.
+
+Class Sensing:
+- obtains the reading from grayscale module as a list called adc_value_list.
+
+class Interpretation:
+- taken in the value sensing class values are return the approximate position of car.
+- Also has a function to calibrate the sensor reading (Highly recommended when trying on new surfaces!)
+- Sensitivity defines the threshold for dark vs light.
+- Polarity defines if the line is darker than background (polarity=1 by default) or vice versa (polarity=0)
+
+Class Controller:
+- Takes in the distance values from the Interpretation class and uses the value to control the steering angle of the car.
+- Camera

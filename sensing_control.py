@@ -86,7 +86,7 @@ class Controller(Interpretation):
     def __init__(self, scaling = 10):
         self.sense=Sensing(500)
         self.infer = Interpretation(self.sense)
-        self.scaling_factor=-25
+        self.scaling_factor=-50
         self.motor =motor_command.Picarx()
 
     def control(self, angle):
