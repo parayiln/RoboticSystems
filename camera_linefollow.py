@@ -101,5 +101,7 @@ if __name__=='__main__':
 
     color=ColorDetect()
     ed=color.read_frame()
-    cv2.imshow("lane",ed)
+    cv2.imshow('sample image',ed)
+
+    cv2.waitKey(10)
     # det.process()
