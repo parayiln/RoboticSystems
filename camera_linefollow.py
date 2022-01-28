@@ -54,27 +54,29 @@ class ColorDetect(object):
 
         return img,mask,morphologyEx_img
 
+    def process(self):
+        print("start color detect")
+        camera = PiCamera()
+        camera.resolution = (640,480)
+        camera.framerate = 24
+        rawCapture = PiRGBArray(camera, size=camera.resolution)
+        for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
+            img = frame.array
+            img,img_2,img_3 =  self.color_detect(img,'red')  # Color detection function
+            cv2.imshow("video", img)    # OpenCV image show
+            cv2.imshow("mask", img_2)    # OpenCV image show
+            cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
+            rawCapture.truncate(0)   # Release cache
+
+            k = cv2.waitKey(1) & 0xFF
+            # 27 is the ESC key, which means that if you press the ESC key to exit
+            if k == 27:
+                camera.close()
+                break
+
+
 
 #init camera
 if __name__=='__main__':
     det=ColorDetect()
-    print("start color detect")
-    camera = PiCamera()
-    camera.resolution = (640,480)
-    camera.framerate = 24
-    rawCapture = PiRGBArray(camera, size=camera.resolution)
-
-
-    for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
-        img = frame.array
-        img,img_2,img_3 =  det.color_detect(img,'red')  # Color detection function
-        cv2.imshow("video", img)    # OpenCV image show
-        cv2.imshow("mask", img_2)    # OpenCV image show
-        cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
-        rawCapture.truncate(0)   # Release cache
-
-        k = cv2.waitKey(1) & 0xFF
-        # 27 is the ESC key, which means that if you press the ESC key to exit
-        if k == 27:
-            camera.close()
-            break
+    det.process()
