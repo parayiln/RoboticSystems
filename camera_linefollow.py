@@ -75,7 +75,7 @@ class ColorDetect(object):
                 camera.close()
                 break
     def read_frame(self):
-        frame =cv2.imread('/home/nidhi/DeepPiCar/driver/data/road1_240x320.png')
+        frame =cv2.imread('/home/pi/DeepPiCar/driver/data/road1_240x320.png')
         return frame
 
     def detect_edges(self):
