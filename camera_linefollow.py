@@ -100,6 +100,6 @@ if __name__=='__main__':
     # det=ColorDetecframe = cv2.imread('/home/pi/DeepPiCar/driver/data/road1_240x320.png')
 
     color=ColorDetect()
-    ed=cv2.imread('/home/nidhi/DeepPiCar/driver/data/road1_240x320.png')
-    cv2.imshow(ed)
+    ed=color.read_frame()
+    cv2.imshow("lane",ed)
     # det.process()
