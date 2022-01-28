@@ -15,7 +15,7 @@ logging_format = "%( asctime)s: %( message)s"
 logging.getLogger ().setLevel(logging.DEBUG)
 
 
-class ColorDetect:
+class ColorDetect(object):
     def __init__(self):
         self.color_dict = {'red':[0,4],'orange':[5,18],'yellow':[22,37],'green':[42,85],'blue':[92,110],'purple':[115,165],'red_2':[165,180]}  #Here is the range of H in the HSV color space represented by the color
         self.kernel_5 = np.ones((5,5),np.uint8) #Define a 5×5 convolution kernel with element values of all 1.
