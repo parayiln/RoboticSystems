@@ -31,12 +31,7 @@ class ColorDetect(object):
         lower_blue = np.array([60, 40, 40])
         upper_blue = np.array([150, 255, 255])
         mask = cv2.inRange(hsv, lower_blue, upper_blue)
-
-        # mask = cv2.inRange(hsv,np.array([min(self.color_dict[color_type]), 60, 60]), np.array([max(self.color_dict[color_type]), 255, 255]) )           # inRange()：Make the ones between lower/upper white, and the rest black
-        # if color_type == 'blue':
-        #         mask_2 = cv2.inRange(hsv, (self.color_dict['blue'][0],0,0), (self.color_dict['blue'][1],255,255))
-        #         mask = cv2.bitwise_or(mask, mask_2)
-
+        edges = cv2.Canny(mask, 200, 400)
         morphologyEx_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel_5,iterations=1)              # Perform an open operation on the image
 
         contours, hierarchy = cv2.findContours(morphologyEx_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)          # Find the contour in morphologyEx_img, and the contours are arranged according to the area from small to large
@@ -56,7 +51,7 @@ class ColorDetect(object):
                     cv2.rectangle(img,(x,y),(x+w,y+h),(0,255,0),2)  # Draw a rectangular frame
                     cv2.putText(img,color_type,(x,y), cv2.FONT_HERSHEY_SIMPLEX, 1,(0,0,255),2)# Add character description
 
-        return img,mask,morphologyEx_img
+        return edges
 
     def process(self):
         print("start color detect")
@@ -66,10 +61,10 @@ class ColorDetect(object):
         rawCapture = PiRGBArray(camera, size=camera.resolution)
         for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
             img = frame.array
-            img,img_2,img_3 =  self.color_detect(img,'blue')  # Color detection function
+            img =  self.color_detect(img,'blue')  # Color detection function
             cv2.imshow("video", img)    # OpenCV image show
-            cv2.imshow("mask", img_2)    # OpenCV image show
-            cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
+            # cv2.imshow("mask", img_2)    # OpenCV image show
+            # cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
             rawCapture.truncate(0)   # Release cache
 
             k = cv2.waitKey(1) & 0xFF
