@@ -30,8 +30,8 @@ class ColorDetect(object):
         color_type = color_name
 
         mask = cv2.inRange(hsv,np.array([min(self.color_dict[color_type]), 60, 60]), np.array([max(self.color_dict[color_type]), 255, 255]) )           # inRange()：Make the ones between lower/upper white, and the rest black
-        if color_type == 'red':
-                mask_2 = cv2.inRange(hsv, (self.color_dict['red_2'][0],0,0), (self.color_dict['red_2'][1],255,255))
+        if color_type == 'blue':
+                mask_2 = cv2.inRange(hsv, (self.color_dict['blue'][0],0,0), (self.color_dict['blue'][1],255,255))
                 mask = cv2.bitwise_or(mask, mask_2)
 
         morphologyEx_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel_5,iterations=1)              # Perform an open operation on the image
@@ -63,7 +63,7 @@ class ColorDetect(object):
         rawCapture = PiRGBArray(camera, size=camera.resolution)
         for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
             img = frame.array
-            img,img_2,img_3 =  self.color_detect(img,'red')  # Color detection function
+            img,img_2,img_3 =  self.color_detect(img,'blue')  # Color detection function
             cv2.imshow("video", img)    # OpenCV image show
             cv2.imshow("mask", img_2)    # OpenCV image show
             cv2.imshow("morphologyEx_img", img_3)    # OpenCV image show
