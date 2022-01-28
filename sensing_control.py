@@ -83,10 +83,10 @@ class Interpretation(Sensing):
 
 
 class Controller(Interpretation):
-    def __init__(self, scaling = 10):
+    def __init__(self, scaling = -40):
         self.sense=Sensing(500)
         self.infer = Interpretation(self.sense)
-        self.scaling_factor=-50
+        self.scaling_factor=-40
         self.motor =motor_command.Picarx()
 
     def control(self, angle):
@@ -108,11 +108,31 @@ class Controller(Interpretation):
 
 if __name__=='__main__':
     sense = Sensing(500)
-    print("Welcoem to week 3 coding")
+    print("Code for line following. Would you like to use the Grayscale module or camera")
+    print("please select 1 for Grayscale sensor or 2 for carmer")
+    use_sensor = input()
+        if use_sensor == 1:
+            flag =0
+        elif use_sensor ==2:
+            flag =1
+        else:
+            flag =0
+            print("no sensor chosen, using the defaut grayscale sensor")
     infer=Interpretation(sense)
     control= Controller(infer)
-    while (True):
-        control.move()
+
+    if flag ==0:
+        print("Select 2 to calibrate or 1 to use the defalut values ")
+        flag_cali=input()
+        if flag_cali==2:
+            infer.calibration()
+        else:
+            if flag_cali != 1 and flag_cali != 2:
+                print("no valid selection made using the defaut values")
+            while (True):
+                control.move()
+    else:
+        print("selected camera")
 
 
  # sensor control integration

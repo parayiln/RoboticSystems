@@ -42,8 +42,16 @@ class Interpretation:
 - taken in the value sensing class values are return the approximate position of car.
 - Also has a function to calibrate the sensor reading (Highly recommended when trying on new surfaces!)
 - Sensitivity defines the threshold for dark vs light.
+- position is estimated based on which sensor reading is from light or dark region.
 - Polarity defines if the line is darker than background (polarity=1 by default) or vice versa (polarity=0)
 
 Class Controller:
 - Takes in the distance values from the Interpretation class and uses the value to control the steering angle of the car.
-- Camera
+
+
+
+
+
+Note:
+all there are tested for black tape. Please to the caliberation for any other surface.
+The speed is set to 30, worked best for the carpet I tested, do change the values if it does not work for you.
