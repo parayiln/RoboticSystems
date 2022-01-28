@@ -16,6 +16,7 @@ logging.getLogger ().setLevel(logging.DEBUG)
 
 
 class ColorDetect(object):
+
     def __init__(self):
         self.color_dict = {'red':[0,4],'orange':[5,18],'yellow':[22,37],'green':[42,85],'blue':[92,110],'purple':[115,165],'red_2':[165,180]}  #Here is the range of H in the HSV color space represented by the color
         self.kernel_5 = np.ones((5,5),np.uint8) #Define a 5×5 convolution kernel with element values of all 1.
@@ -33,7 +34,7 @@ class ColorDetect(object):
                 mask_2 = cv2.inRange(hsv, (self.color_dict['red_2'][0],0,0), (self.color_dict['red_2'][1],255,255))
                 mask = cv2.bitwise_or(mask, mask_2)
 
-        morphologyEx_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.self.kernel_5,iterations=1)              # Perform an open operation on the image
+        morphologyEx_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel_5,iterations=1)              # Perform an open operation on the image
 
         contours, hierarchy = cv2.findContours(morphologyEx_img,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)          # Find the contour in morphologyEx_img, and the contours are arranged according to the area from small to large
 
