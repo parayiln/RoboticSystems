@@ -108,31 +108,22 @@ class Controller(Interpretation):
 
 if __name__=='__main__':
     sense = Sensing(500)
-    print("Code for line following. Would you like to use the Grayscale module or camera")
-    print("please select 1 for Grayscale sensor or 2 for carmer")
-    use_sensor = input()
-        if use_sensor == 1:
-            flag =0
-        elif use_sensor ==2:
-            flag =1
-        else:
-            flag =0
-            print("no sensor chosen, using the defaut grayscale sensor")
+    print("Code for line following using the Grayscale module")
+
+
     infer=Interpretation(sense)
     control= Controller(infer)
 
-    if flag ==0:
-        print("Select 2 to calibrate or 1 to use the defalut values ")
-        flag_cali=input()
-        if flag_cali==2:
-            infer.calibration()
-        else:
-            if flag_cali != 1 and flag_cali != 2:
-                print("no valid selection made using the defaut values")
-            while (True):
-                control.move()
+    print("Select 2 to calibrate or 1 to use the defalut values ")
+    flag_cali=input()
+    if flag_cali==2:
+        infer.calibration()
     else:
-        print("selected camera")
+        if flag_cali != 1 and flag_cali != 2:
+            print("no valid selection made using the defaut values")
+        while (True):
+            control.move()
+
 
 
  # sensor control integration

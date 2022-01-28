@@ -22,7 +22,7 @@ class ColorDetect(object):
         self.kernel_5 = np.ones((5,5),np.uint8) #Define a 5×5 convolution kernel with element values of all 1.
 
 
-    def color_detect(self, img, color_name):
+    def color_detect(self, img):
 
         # The blue range will be different under different lighting conditions and can be adjusted flexibly.  H: chroma, S: saturation v: lightness
         resize_img = cv2.resize(img, (160,120), interpolation=cv2.INTER_LINEAR)  # In order to reduce the amount of calculation, the size of the picture is reduced to (160,120)
@@ -51,14 +51,14 @@ class ColorDetect(object):
         return cropped_edges
 
     def process(self):
-        print("start color detect")
+        print("lane following using the camera")
         camera = PiCamera()
         camera.resolution = (640,480)
         camera.framerate = 24
         rawCapture = PiRGBArray(camera, size=camera.resolution)
         for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
             img = frame.array
-            img =  self.region_of_interest(img,'blue')  # Color detection function
+            img =  self.region_of_interest(img)  # Color detection function
             cv2.imshow("video", img)    # OpenCV image show
             rawCapture.truncate(0)   # Release cache
 
