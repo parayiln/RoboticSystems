@@ -74,10 +74,32 @@ class ColorDetect(object):
             if k == 27:
                 camera.close()
                 break
+    def read_frame(self):
+        frame =cv2.imread('/home/nidhi/DeepPiCar/driver/data/road1_240x320.png')
+        return frame
+
+    def detect_edges(self):
+        # filter for blue lane lines
+        frame =self.read_frame()
+        hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        show_image("hsv", hsv)
+        lower_blue = np.array([60, 40, 40])
+        upper_blue = np.array([150, 255, 255])
+        mask = cv2.inRange(hsv, lower_blue, upper_blue)
+        show_image("blue mask", mask)
+
+        # detect edges
+        edges = cv2.Canny(mask, 200, 400)
+
+        return edges
 
 
 
 #init camera
 if __name__=='__main__':
-    det=ColorDetect()
-    det.process()
+    # det=ColorDetecframe = cv2.imread('/home/pi/DeepPiCar/driver/data/road1_240x320.png')
+
+    color=ColorDetect()
+    ed=color.detect_edges()
+    cv2.imshow(ed)
+    # det.process()
