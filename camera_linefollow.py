@@ -60,11 +60,11 @@ class ColorDetect(object):
         return line_segments
 
     def average_slope_intercept(self,frame, line_segments):
-    """
-    This function combines line segments into one or two lane lines
-    If all line slopes are < 0: then we only have detected left lane
-    If all line slopes are > 0: then we only have detected right lane
-    """
+    # """
+    # This function combines line segments into one or two lane lines
+    # If all line slopes are < 0: then we only have detected left lane
+    # If all line slopes are > 0: then we only have detected right lane
+    # """
         lane_lines = []
         if line_segments is None:
             logging.info('No line_segment segments detected')
