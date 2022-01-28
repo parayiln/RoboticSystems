@@ -7,14 +7,8 @@ import time
 import motor_command
 import cv2
 import numpy as np
-try:
-    from picamera.array import PiRGBArray
-    from picamera import PiCamera
-    reset_mcu()
-    time.sleep (0.01)
-except ImportError:
-    print ("This computer does not appear to be a PiCar -X system (ezblock is not present). Shadowing hardware calls with substitute functions ")
-    from sim_ezblock import *
+from picamera.array import PiRGBArray
+from picamera import PiCamera
 
 logging_format = "%( asctime)s: %( message)s"
 # logging.basicConfig(format=logging_format , level=logging.INFO , datefmt ="%H:%M:%S")
