@@ -28,11 +28,14 @@ class ColorDetect(object):
         resize_img = cv2.resize(img, (160,120), interpolation=cv2.INTER_LINEAR)  # In order to reduce the amount of calculation, the size of the picture is reduced to (160,120)
         hsv = cv2.cvtColor(resize_img, cv2.COLOR_BGR2HSV)              # Convert from BGR to HSV
         color_type = color_name
+        lower_blue = np.array([60, 40, 40])
+        upper_blue = np.array([150, 255, 255])
+        mask = cv2.inRange(hsv, lower_blue, upper_blue)
 
-        mask = cv2.inRange(hsv,np.array([min(self.color_dict[color_type]), 60, 60]), np.array([max(self.color_dict[color_type]), 255, 255]) )           # inRange()：Make the ones between lower/upper white, and the rest black
-        if color_type == 'blue':
-                mask_2 = cv2.inRange(hsv, (self.color_dict['blue'][0],0,0), (self.color_dict['blue'][1],255,255))
-                mask = cv2.bitwise_or(mask, mask_2)
+        # mask = cv2.inRange(hsv,np.array([min(self.color_dict[color_type]), 60, 60]), np.array([max(self.color_dict[color_type]), 255, 255]) )           # inRange()：Make the ones between lower/upper white, and the rest black
+        # if color_type == 'blue':
+        #         mask_2 = cv2.inRange(hsv, (self.color_dict['blue'][0],0,0), (self.color_dict['blue'][1],255,255))
+        #         mask = cv2.bitwise_or(mask, mask_2)
 
         morphologyEx_img = cv2.morphologyEx(mask, cv2.MORPH_OPEN, self.kernel_5,iterations=1)              # Perform an open operation on the image
 
