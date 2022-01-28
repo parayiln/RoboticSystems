@@ -58,6 +58,7 @@ class ColorDetect(object):
         rawCapture = PiRGBArray(camera, size=camera.resolution)
         for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
             img = frame.array
+            img=self.color_dict(img)
             img =  self.region_of_interest(img)  # Color detection function
             cv2.imshow("video", img)    # OpenCV image show
             rawCapture.truncate(0)   # Release cache
