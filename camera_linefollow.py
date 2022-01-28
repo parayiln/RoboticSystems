@@ -126,28 +126,161 @@ class ColorDetect(object):
         return lane_lines
 
 
-    def process(self):
-        print("lane following using the camera")
-        camera = PiCamera()
-        camera.resolution = (640,480)
-        camera.framerate = 24
-        rawCapture = PiRGBArray(camera, size=camera.resolution)
-        for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
-            frame = frame.array
-            img=self.detect_lane(frame)
-            print("hello",img) # Color detection function
-            cv2.imshow("video", img)    # OpenCV image show
-            rawCapture.truncate(0)   # Release cache
+    def display_lines(self, frame, lines, line_color=(0, 255, 0), line_width=2):
+        line_image = np.zeros_like(frame)
+        if lines is not None:
+            for line in lines:
+                for x1, y1, x2, y2 in line:
+                    cv2.line(line_image, (x1, y1), (x2, y2), line_color, line_width)
+        line_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
+        return line_image
 
-            k = cv2.waitKey(1) & 0xFF
-            # 27 is the ESC key, which means that if you press the ESC key to exit
-            if k == 27:
-                camera.close()
-                break
+    def display_heading_line(frame, steering_angle, line_color=(0, 0, 255), line_width=5 ):
+        heading_image = np.zeros_like(frame)
+        height, width, _ = frame.shape
+
+        # figure out the heading line from steering angle
+        # heading line (x1,y1) is always center bottom of the screen
+        # (x2, y2) requires a bit of trigonometry
+
+        # Note: the steering angle of:
+        # 0-89 degree: turn left
+        # 90 degree: going straight
+        # 91-180 degree: turn right
+        steering_angle_radian = steering_angle / 180.0 * math.pi
+        x1 = int(width / 2)
+        y1 = height
+        x2 = int(x1 - height / 2 / math.tan(steering_angle_radian))
+        y2 = int(height / 2)
+
+        cv2.line(heading_image, (x1, y1), (x2, y2), line_color, line_width)
+        heading_image = cv2.addWeighted(frame, 0.8, heading_image, 1, 1)
+
+        return heading_image
+
+    def length_of_line_segment(line):
+        x1, y1, x2, y2 = line
+        return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
+
+
+    def show_image(title, frame, show=_SHOW_IMAGE):
+        if show:
+            cv2.imshow(title, frame)
+
+
+    def make_points(frame, line):
+        height, width, _ = frame.shape
+        slope, intercept = line
+        y1 = height  # bottom of the frame
+        y2 = int(y1 * 1 / 2)  # make points from middle of the frame down
+
+        # bound the coordinates within the frame
+        x1 = max(-width, min(2 * width, int((y1 - intercept) / slope)))
+        x2 = max(-width, min(2 * width, int((y2 - intercept) / slope)))
+        return [[x1, y1, x2, y2]]
+
+
+    def stabilize_steering_angle(
+          curr_steering_angle,
+          new_steering_angle,
+          num_of_lane_lines,
+          max_angle_deviation_two_lines=5,
+          max_angle_deviation_one_lane=1):
+        """
+        Using last steering angle to stabilize the steering angle
+        if new angle is too different from current angle,
+        only turn by max_angle_deviation degrees
+        """
+        if num_of_lane_lines == 2 :
+            # if both lane lines detected, then we can deviate more
+            max_angle_deviation = max_angle_deviation_two_lines
+        else :
+            # if only one lane detected, don't deviate too much
+            max_angle_deviation = max_angle_deviation_one_lane
+
+        angle_deviation = new_steering_angle - curr_steering_angle
+        if abs(angle_deviation) > max_angle_deviation:
+            stabilized_steering_angle = int(curr_steering_angle
+                + max_angle_deviation * angle_deviation / abs(angle_deviation))
+        else:
+            stabilized_steering_angle = new_steering_angle
+        return stabilized_steering_angle
+
+
+
+    #
+    # def process(self):
+    #     print("lane following using the camera")
+    #
+    #     camera = PiCamera()
+    #     camera.resolution = (640,480)
+    #     camera.framerate = 24
+    #     rawCapture = PiRGBArray(camera, size=camera.resolution)
+    #     for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True):# use_video_port=True
+    #         frame = frame.array
+    #         lane_lines_image = display_lines(frame, lane_lines)
+    #         cv2.imshow("lane lines", lane_lines_image)
+    #         img=self.detect_lane(frame)
+    #         print("hello",img) # Color detection function
+    #         # cv2.imshow("video", img)    # OpenCV image show
+    #         rawCapture.truncate(0)   # Release cache
+    #
+    #         k = cv2.waitKey(1) & 0xFF
+    #         # 27 is the ESC key, which means that if you press the ESC key to exit
+    #         if k == 27:
+    #             camera.close()
+    #             break
+
+class HandCodedLaneFollower(ColorDetect):
+
+    def __init__(self, car=None):
+        logging.info('Creating a HandCodedLaneFollower...')
+        self.car = car
+        self.curr_steering_angle = 90
+        self.color_detect=ColorDetect()
+
+    def follow_lane(self, frame):
+        # Main entry point of the lane follower
+        show_image("orig", frame)
+
+        lane_lines, frame = self.color_detect.detect_lane(frame)
+        final_frame = self.steer(frame, lane_lines)
+
+        return final_frame
+
+    def steer(self, frame, lane_lines):
+        logging.debug('steering...')
+        if len(lane_lines) == 0:
+            logging.error('No lane lines detected, nothing to do.')
+            return frame
+
+        new_steering_angle = self.color_detect.compute_steering_angle(frame, lane_lines)
+        self.curr_steering_angle = self.color_detect.stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
+
+        if self.car is not None:
+            self.car.front_wheels.turn(self.curr_steering_angle)
+        curr_heading_image = self.color_detect.display_heading_line(frame, self.curr_steering_angle)
+        show_image("heading", curr_heading_image)
+
+        return curr_heading_image
 
 
 
 #init camera
 if __name__=='__main__':
     det=ColorDetect()
-    det.process()
+    lane=HandCodedLaneFollower(px)
+    camera = PiCamera()
+    camera.resolution = (640,480)
+    camera.framerate = 24
+    rawCapture = PiRGBArray(camera, size=camera.resolution)
+
+
+    for frame in camera.capture_continuous(rawCapture, format="bgr",use_video_port=True): # use_video_port=True
+        frame = frame.array
+        lane.follow_lane(frame)
+        rawCapture.truncate(0)  # Release cache
+        k = cv2.waitKey(1) & 0xFF
+        if k == 27:
+            camera.close()
+            break
