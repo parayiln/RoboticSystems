@@ -241,7 +241,7 @@ class HandCodedLaneFollower(ColorDetect):
 
     def follow_lane(self, frame):
         # Main entry point of the lane follower
-        show_image("orig", frame)
+        self.color_detect.show_image("orig", frame)
 
         lane_lines, frame = self.color_detect.detect_lane(frame)
         final_frame = self.steer(frame, lane_lines)
