@@ -49,7 +49,7 @@ class ColorDetect(object):
         cropped_edges = cv2.bitwise_and(edges, mask)
         return cropped_edges
 
-    def detect_line_segments(cropped_edges):
+    def detect_line_segments(self, cropped_edges):
         # tuning min_threshold, minLineLength, maxLineGap is a trial and error process by hand
         rho = 1  # distance precision in pixel, i.e. 1 pixel
         angle = np.pi / 180  # angular precision in radian, i.e. 1 degree
@@ -135,7 +135,7 @@ class ColorDetect(object):
         line_image = cv2.addWeighted(frame, 0.8, line_image, 1, 1)
         return line_image
 
-    def display_heading_line(frame, steering_angle, line_color=(0, 0, 255), line_width=5 ):
+    def display_heading_line(self, frame, steering_angle, line_color=(0, 0, 255), line_width=5 ):
         heading_image = np.zeros_like(frame)
         height, width, _ = frame.shape
 
@@ -168,7 +168,7 @@ class ColorDetect(object):
             cv2.imshow(title, frame)
 
 
-    def make_points(frame, line):
+    def make_points(self, frame, line):
         height, width, _ = frame.shape
         slope, intercept = line
         y1 = height  # bottom of the frame
@@ -180,12 +180,7 @@ class ColorDetect(object):
         return [[x1, y1, x2, y2]]
 
 
-    def stabilize_steering_angle(
-          curr_steering_angle,
-          new_steering_angle,
-          num_of_lane_lines,
-          max_angle_deviation_two_lines=5,
-          max_angle_deviation_one_lane=1):
+    def stabilize_steering_angle(self, curr_steering_angle, new_steering_angle, num_of_lane_lines, max_angle_deviation_two_lines=5, max_angle_deviation_one_lane=1):
         """
         Using last steering angle to stabilize the steering angle
         if new angle is too different from current angle,
