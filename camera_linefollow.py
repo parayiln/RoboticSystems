@@ -269,7 +269,7 @@ class HandCodedLaneFollower(ColorDetect):
 #init camera
 if __name__=='__main__':
     det=ColorDetect()
-    lane=HandCodedLaneFollower(px)
+    lane=HandCodedLaneFollower(det)
     camera = PiCamera()
     camera.resolution = (640,480)
     camera.framerate = 24
