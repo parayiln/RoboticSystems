@@ -158,12 +158,12 @@ class ColorDetect(object):
 
         return heading_image
 
-    def length_of_line_segment(line):
+    def length_of_line_segment(self,line):
         x1, y1, x2, y2 = line
         return math.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
 
 
-    def show_image(title, frame, show=_SHOW_IMAGE):
+    def show_image(self, title, frame, show=False):
         if show:
             cv2.imshow(title, frame)
 
