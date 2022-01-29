@@ -293,10 +293,10 @@ class HandCodedLaneFollower(ColorDetect):
             return frame
 
         new_steering_angle = self.color_detect.compute_steering_angle(frame, lane_lines)
-        self.curr_steering_angle = self.color_detect.stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
+        self.curr_steering_angle = -90+self.color_detect.stabilize_steering_angle(self.curr_steering_angle, new_steering_angle, len(lane_lines))
 
         if self.car is not None:
-            self.car.set_dir_servo_angle(self.curr_steering_angle-90)
+            self.car.set_dir_servo_angle(self.curr_steering_angle)
             self.car.forward(30)
         curr_heading_image = self.color_detect.display_heading_line(frame, self.curr_steering_angle)
         self.color_detect.show_image("heading", curr_heading_image, True)
