@@ -96,27 +96,27 @@ class ColorDetect(object):
 
         left_fit_average = np.average(left_fit, axis=0)
         if len(left_fit) > 0:
-            lane_lines.append(make_points(frame, left_fit_average))
+            lane_lines.append(self.make_points(frame, left_fit_average))
 
         right_fit_average = np.average(right_fit, axis=0)
         if len(right_fit) > 0:
-            lane_lines.append(make_points(frame, right_fit_average))
+            lane_lines.append(self.make_points(frame, right_fit_average))
 
         logging.debug('lane lines: %s' % lane_lines)  # [[[316, 720, 484, 432]], [[1009, 720, 718, 432]]]
 
         return lane_lines
 
 
-    def make_points(self, frame, line):
-        height, width, _ = frame.shape
-        slope, intercept = line
-        y1 = height  # bottom of the frame
-        y2 = int(y1 * 1 / 2)  # make points from middle of the frame down
-
-        # bound the coordinates within the frame
-        x1 = max(-width, min(2 * width, int((y1 - intercept) / slope)))
-        x2 = max(-width, min(2 * width, int((y2 - intercept) / slope)))
-        return [[x1, y1, x2, y2]]
+    # def make_points(self, frame, line):
+    #     height, width, _ = frame.shape
+    #     slope, intercept = line
+    #     y1 = height  # bottom of the frame
+    #     y2 = int(y1 * 1 / 2)  # make points from middle of the frame down
+    #
+    #     # bound the coordinates within the frame
+    #     x1 = max(-width, min(2 * width, int((y1 - intercept) / slope)))
+    #     x2 = max(-width, min(2 * width, int((y2 - intercept) / slope)))
+    #     return [[x1, y1, x2, y2]]
 
     def detect_lane(self, frame):
         logging.debug('detecting lane lines...')
