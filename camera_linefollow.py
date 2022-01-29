@@ -118,10 +118,10 @@ class ColorDetect(object):
         return [[x1, y1, x2, y2]]
 
     def detect_lane(self, frame):
-        edges = detect_edges(frame)
-        cropped_edges = region_of_interest(edges)
-        line_segments = detect_line_segments(cropped_edges)
-        lane_lines = average_slope_intercept(frame, line_segments)
+        edges = self.detect_edges(frame)
+        cropped_edges = self.region_of_interest(edges)
+        line_segments = self.detect_line_segments(cropped_edges)
+        lane_lines = self.average_slope_intercept(frame, line_segments)
 
         return lane_lines
 
