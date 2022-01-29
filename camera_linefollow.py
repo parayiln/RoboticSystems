@@ -118,14 +118,24 @@ class ColorDetect(object):
         x2 = max(-width, min(2 * width, int((y2 - intercept) / slope)))
         return [[x1, y1, x2, y2]]
 
-    def detect_lane(self, frame):
-        edges = self.detect_edges(frame)
-        cropped_edges = self.region_of_interest(edges)
-        line_segments = self.detect_line_segments(cropped_edges)
-        lane_lines = self.average_slope_intercept(frame, line_segments)
+    def detect_lane(frame):
+        logging.debug('detecting lane lines...')
 
-        return lane_lines
+        edges = detect_edges(frame)
+        show_image('edges', edges)
 
+        cropped_edges = region_of_interest(edges)
+        show_image('edges cropped', cropped_edges)
+
+        line_segments = detect_line_segments(cropped_edges)
+        line_segment_image = display_lines(frame, line_segments)
+        show_image("line segments", line_segment_image)
+
+        lane_lines = average_slope_intercept(frame, line_segments)
+        lane_lines_image = display_lines(frame, lane_lines)
+        show_image("lane lines", lane_lines_image)
+
+        return lane_lines, lane_lines_image
 
     def display_lines(self, frame, lines, line_color=(0, 255, 0), line_width=2):
         line_image = np.zeros_like(frame)
