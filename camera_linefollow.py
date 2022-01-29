@@ -118,7 +118,7 @@ class ColorDetect(object):
         x2 = max(-width, min(2 * width, int((y2 - intercept) / slope)))
         return [[x1, y1, x2, y2]]
 
-    def detect_lane(frame):
+    def detect_lane(self, frame):
         logging.debug('detecting lane lines...')
 
         edges = detect_edges(frame)
