@@ -104,6 +104,10 @@ class Controller(Interpretation):
         self.motor.forward(30)
         time.sleep(.05)
 
+    def stop(self):
+        self.motor.stop()
+
+
 
 
 

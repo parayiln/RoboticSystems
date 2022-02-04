@@ -2,11 +2,11 @@
 from readerwriterlock import rwlock
 
 class buss(object):
-    def __init__(self):
+    def __init__(self,message):
         self.lock = rwlock.RWLockWriteD ()
-        self.message = default
+        self.message = message
 
-    def write(self):
+    def write(self,message):
         with self.lock.gen_wlock ():
             self.message = message
 

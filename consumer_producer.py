@@ -5,7 +5,7 @@ sys.path.append(r'/home/nidhi/RoboticSystems')
 from sensing_control import Sensing, Interpretation, Controller
 import time
 import concurrent.futures
-
+import atexit
 
 def producer(buss, delay):
     while True:
@@ -25,19 +25,21 @@ def consumer(buss, delay):
     while True:
         data_process = process_bus.read()
         control.move(data_pocess)
-        time.sleep(delay)   
+        time.sleep(delay)
 
 
 if __name__ == "__main__":
     sense = Sensing()
     process = Interpretation()
     control = Controller()
-    sense_bus = Bus([1, 1, 1])
-    process_bus = Bus(0)
+    sense_bus = buss([1, 1, 1])
+    process_bus = buss(0)
 
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            eSense = executor.submit(producer, sense_bus, sense)
-            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process)
-            eControl = executor.submit(consumer, process_bus, control)
-        eSensor.result ()
+            eSense = executor.submit(producer,.2, sense_bus, sense)
+            eProcess = executor.submit(consumer_producer,.2, sense_bus, process_bus, process)
+            eControl = executor.submit(consumer,.2, process_bus, control)
+        eSense.result()
+    finally:
+        atexit.register(control.stop)
