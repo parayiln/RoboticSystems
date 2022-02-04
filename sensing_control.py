@@ -116,7 +116,7 @@ if __name__=='__main__':
     data=sense.sensing()
 
     infer=Interpretation(sense)
-    dist=infer.processing(data)
+    dist=infer.Processing(data)
     control= Controller(infer)
 
     print("Select 2 to calibrate or 1 to use the defalut values ")
