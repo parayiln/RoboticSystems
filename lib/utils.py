@@ -1,5 +1,6 @@
 # from .ble import BLE
-
+import sys
+sys.path.append(r'/home/nidhi/RoboticSystems/lib/')
 import time
 import os
 import re
@@ -13,7 +14,7 @@ def reset_mcu():
     time.sleep(0.001)
     mcu_reset.on()
     time.sleep(0.1)
-# ble = BLE()
+# ble = BLE()sh
 
 # ble.write('NAME+ezb-RPi')
 # ble.write('ADVP+') # 0~F
