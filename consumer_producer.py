@@ -8,6 +8,7 @@ import concurrent.futures
 
 
 def producer(buss, delay):
+    print("p enter")
     while True:
         data_read = sense.sensing()
         print(data_read)
@@ -39,7 +40,7 @@ if __name__ == "__main__":
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             print("enter")
-            eSense = executor.submit(producer,.2, sense_bus, sense)
+            eSense = executor.submit(producer, .2, sense_bus, sense)
             eProcess = executor.submit(consumer_producer,.2, sense_bus, process_bus, process)
             eControl = executor.submit(consumer,.2, process_bus, control)
         eSense.result()
