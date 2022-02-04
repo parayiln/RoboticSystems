@@ -6,14 +6,12 @@ import time
 import motor_command
 try:
     import sys
-    sys.path.append(r'/home/nidhi/RoboticSystems/lib')
+    sys.path.append(r'/home/nidhi/RoboticSystems/lib/')
     from adc import ADC
     from utils import reset_mcu
     reset_mcu()
     time.sleep (0.01)
 except ImportError:
-    import sys
-    sys.path.append(r'/home/nidhi/intro2/RoboticSystems/lib')
     print ("This computer does not appear to be a PiCar -X system (ezblock is not present). Shadowing hardware calls with substitute functions ")
     from sim_ezblock import *
 

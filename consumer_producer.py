@@ -1,7 +1,7 @@
 
 from buss import buss
 import sys
-sys.path.append(r'/home/nidhi/RoboticSystems')
+sys.path.append(r'/home/nidhi/RoboticSystems/lib/')
 from sensing_control import Sensing, Interpretation, Controller
 import time
 import concurrent.futures
