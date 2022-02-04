@@ -1,7 +1,8 @@
 #week 4
-from readerwriterlock import rwlock
+
 import sys
 sys.path.append(r'/home/nidhi/.local/lib/python3.7/site-packages')
+from readerwriterlock import rwlock
 class buss(object):
     def __init__(self,message):
         self.lock = rwlock.RWLockWriteD ()
