@@ -55,7 +55,7 @@ class Interpretation(Sensing):
         cali_values= (average_dark+average_light)/2
         self.sensitivity=cali_values
 
-    def Processing(self, data=self.sense.sensing()):
+    def Processing(self,data):
         adc_values=data
         label=adc_values
         ####### label the values as dark or light ############
@@ -113,9 +113,10 @@ class Controller(Interpretation):
 if __name__=='__main__':
     sense = Sensing(500)
     print("Code for line following using the Grayscale module")
-
+    data=sense.sensing()
 
     infer=Interpretation(sense)
+    data_process=infer.processing(data)
     control= Controller(infer)
 
     print("Select 2 to calibrate or 1 to use the defalut values ")
