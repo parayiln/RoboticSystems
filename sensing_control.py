@@ -97,7 +97,7 @@ class Controller(Interpretation):
         angle_steer =self.motor.set_dir_servo_angle(angle)
         return angle_steer
 # function for control - sensing integration
-    def move(self,dist=self.infer.Processing()):
+    def move(self,dist):
         distance=dist
         self.control(distance*self.scaling_factor)
         time.sleep(.05)
@@ -116,7 +116,7 @@ if __name__=='__main__':
     data=sense.sensing()
 
     infer=Interpretation(sense)
-    data_process=infer.processing(data)
+    dist=infer.processing(data)
     control= Controller(infer)
 
     print("Select 2 to calibrate or 1 to use the defalut values ")
@@ -127,7 +127,7 @@ if __name__=='__main__':
         if flag_cali != 1 and flag_cali != 2:
             print("no valid selection made using the defaut values")
         while (True):
-            control.move()
+            control.move(dist)
 
 
 
