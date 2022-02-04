@@ -5,11 +5,15 @@ from logdecorator import log_on_start , log_on_end , log_on_error
 import time
 import motor_command
 try:
+    import sys
+    sys.path.append(r'/home/nidhi/RoboticSystems/lib')
     from adc import ADC
     from utils import reset_mcu
     reset_mcu()
     time.sleep (0.01)
 except ImportError:
+    import sys
+    sys.path.append(r'/home/nidhi/intro2/RoboticSystems/lib')
     print ("This computer does not appear to be a PiCar -X system (ezblock is not present). Shadowing hardware calls with substitute functions ")
     from sim_ezblock import *
 
@@ -51,8 +55,8 @@ class Interpretation(Sensing):
         cali_values= (average_dark+average_light)/2
         self.sensitivity=cali_values
 
-    def Processing(self):
-        adc_values=self.sense.sensing()
+    def Processing(self, data=self.sense.sensing()):
+        adc_values=data
         label=adc_values
         ####### label the values as dark or light ############
         for i in range(3):
@@ -93,8 +97,8 @@ class Controller(Interpretation):
         angle_steer =self.motor.set_dir_servo_angle(angle)
         return angle_steer
 # function for control - sensing integration
-    def move(self):
-        distance=self.infer.Processing()
+    def move(self,dist=self.infer.Processing()):
+        distance=dist
         self.control(distance*self.scaling_factor)
         time.sleep(.05)
         self.motor.forward(30)

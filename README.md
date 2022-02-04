@@ -50,8 +50,17 @@ Class Controller:
 
 
 
-
-
 Note:
-all there are tested for black tape. Please to the caliberation for any other surface.
+all there are tested for black tape. Please to the calibration for any other surface.
 The speed is set to 30, worked best for the carpet I tested, do change the values if it does not work for you.
+
+camera_linefolow.py:
+-Code for lane following.
+-Has two classes. One does all the sensing (of the two lanes, I used blue tapes for lanes), processing and results the steering angle.
+- The other uses pycar_improved.py to move the car with constant speed of 30 (best speed for my carpet) with the steering angle given.
+
+
+
+************************************************
+Week 4 codes Modifications
+*********************************************

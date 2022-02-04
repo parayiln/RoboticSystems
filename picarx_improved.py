@@ -6,6 +6,8 @@ import atexit
 try:
     # from ezblock import *
     # from ezblock import __reset_mcu__
+    import sys
+    sys.path.append(r'/home/nidhi/RoboticSystems/lib')
     from servo import Servo
     from pwm import PWM
     from pin import Pin
@@ -15,6 +17,8 @@ try:
     reset_mcu()
     time.sleep (0.01)
 except ImportError:
+    import sys
+    sys.path.append(r'/home/nidhi/intro2/RoboticSystems/lib')
     print ("This computer does not appear to be a PiCar -X system (ezblock is not present). Shadowing hardware calls with substitute functions ")
     from sim_ezblock import *
 

@@ -5,6 +5,8 @@ from logdecorator import log_on_start , log_on_end , log_on_error
 import time
 import atexit
 try:
+    import sys
+    sys.path.append(r'/home/nidhi/RoboticSystems/lib')
     # from ezblock import *
     # from ezblock import __reset_mcu__
     from servo import Servo
@@ -16,8 +18,11 @@ try:
     reset_mcu()
     time.sleep (0.01)
 except ImportError:
+    import sys
+    sys.path.append(r'/home/nidhi/intro2/RoboticSystems/lib')
     print ("This computer does not appear to be a PiCar -X system (ezblock is not present). Shadowing hardware calls with substitute functions ")
     from sim_ezblock import *
+
 
 logging_format = "%( asctime)s: %( message)s"
 # logging.basicConfig(format=logging_format , level=logging.INFO , datefmt ="%H:%M:%S")
@@ -152,7 +157,6 @@ class Picarx(object):
             if abs_current_angle > 40:
                 abs_current_angle = 40
             power_scale = (100 - abs_current_angle) / 100.0
-            print("power_scale:",power_scale)
             if (current_angle / abs_current_angle) > 0:
                 self.set_motor_speed(1, speed)
                 self.set_motor_speed(2, -1*speed * power_scale)
@@ -175,6 +179,7 @@ class Picarx(object):
 
 
 if __name__ == "__main__":
+
     px = Picarx()
     px.forward(50)
     time.sleep(1)
