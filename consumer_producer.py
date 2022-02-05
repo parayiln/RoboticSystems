@@ -7,13 +7,13 @@ import time
 import concurrent.futures
 
 
-def producer(buss, delay):
+def producer(sense_bus, delay):
     while True:
         data_read = sense.sensing()
         sense_bus.write(data_read)
         time.sleep(delay)
 
-def consumer_producer(buss, delay):
+def consumer_producer(sense_bus, process_bus ,delay):
     while True:
         print("enterd cp")
         data_read = sense_bus.read()
