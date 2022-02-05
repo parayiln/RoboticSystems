@@ -33,12 +33,9 @@ def consumer(process_bus, delay, control):
 if __name__ == "__main__":
     sense = Sensing()
     infer = Interpretation()
+    print(infer.Processing([0,0,0]))
     control = Controller()
-    adc_value_list = []
-    adc_value_list.append(0)
-    adc_value_list.append(0)
-    adc_value_list.append(0)
-    sense_bus = buss(adc_value_list)
+    sense_bus = buss([0, 0, 0])
     process_bus = buss(0)
     sense_delay=.5
     process_delay=.5
