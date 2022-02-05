@@ -7,16 +7,16 @@ from readerwriterlock import rwlock
 
 class buss(object):
     def __init__(self,message):
-        self.lock = rwlock.RWLockWriteD ()
+        self.lock = rwlock.RWLockWriteD()
         self.message = message
 
     def write(self,message):
-        with self.lock.gen_wlock ():
+        with self.lock.gen_wlock():
             self.message = message
             print("message write",message)
 
     def read(self):
-        with self.lock.gen_rlock ():
-            message = self.message
-            print("message read",message)
+        # with self.lock.gen_rlock ():
+        message = self.message
+        print("message read",message)
         return message
