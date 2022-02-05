@@ -26,8 +26,6 @@ class Sensing(object):
         self.chn_1 = ADC("A1")
         self.chn_2 = ADC("A2")
         self.ref = ref
-        print("init sense")
-
 
     def sensing(self):
         adc_value_list = []
@@ -88,6 +86,7 @@ class Interpretation(Sensing):
 
 class Controller(Interpretation):
     def __init__(self, scaling = -40):
+        print("enter control")
         self.sense=Sensing(500)
         self.infer = Interpretation(self.sense)
         self.scaling_factor=-40
