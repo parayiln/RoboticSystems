@@ -18,6 +18,7 @@ def consumer_producer(sense_bus, process_bus, delay, process):
         print("enterd cp")
         data_read = sense_bus.read()
         data_pocess = process.Processing(data_read)
+        print("done")
         print("process read", data_process)
         process_bus.write(data_process)
         time.sleep(delay)
