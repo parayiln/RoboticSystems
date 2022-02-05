@@ -16,7 +16,7 @@ class buss(object):
             print("message write",message)
 
     def read(self):
-        # with self.lock.gen_rlock ():
-        message = self.message
-        print("message read",message)
-        return message
+        with self.lock.gen_rlock ():
+            message = self.message
+            print("message read",message)
+            return message

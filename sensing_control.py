@@ -81,7 +81,6 @@ class Interpretation(object):
         else:
             distance =0
             print("I cannot see any line - moving straight blindly. Please guide this blind car to a line, Thankyou!")
-        print(distance)
         return distance
 
 
