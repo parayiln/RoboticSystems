@@ -103,8 +103,8 @@ class Controller(object):
         time.sleep(.05)
 
 
-    # def stop(self):
-    #     self.motor.stop()
+    def stop(self):
+        self.motor.stop()
 
 
 

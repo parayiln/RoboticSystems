@@ -5,7 +5,7 @@ sys.path.append(r'/home/nidhi/RoboticSystems/lib/')
 from sensing_control import Sensing, Interpretation, Controller
 import time
 import concurrent.futures
-
+import atexit
 
 def producer(sense_bus, delay):
     sense = Sensing()
@@ -25,6 +25,7 @@ def consumer_producer(sense_bus, process_bus, delay):
 
 def consumer(process_bus, delay):
     control = Controller()
+    atexit.register(control.stop())
     while True:
         data_process = process_bus.read()
         control.move(data_process)
