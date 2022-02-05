@@ -54,6 +54,7 @@ class Interpretation(object):
         self.sensitivity=cali_values
 
     def Processing(self,data):
+        print("enteredededede")
         adc_values=data
         label=adc_values
         ####### label the values as dark or light ############
