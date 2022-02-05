@@ -36,9 +36,9 @@ if __name__ == "__main__":
     control = Controller(process)
     sense_bus = buss(0)
     process_bus = buss(0)
-    sense_delay=1
-    process_delay=1
-    control_delay=1
+    sense_delay=5
+    process_delay=5
+    control_delay=5
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             eSense = executor.submit(producer, sense_bus, sense_delay)
