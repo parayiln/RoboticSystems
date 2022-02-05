@@ -23,7 +23,7 @@ def consumer_producer(sense_bus, process_bus ,delay):
         time.sleep(delay)
 
 
-def consumer(buss, delay):
+def consumer(process_bus, delay):
     while True:
         print("moving")
         data_process = process_bus.read()
