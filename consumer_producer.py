@@ -36,7 +36,7 @@ if __name__ == "__main__":
     control = Controller()
     sense_bus = buss([0, 0, 0])
     process_bus = buss(0)
-    sense_delay=10
+    sense_delay=.5
     process_delay=.5
     control_delay=.5
     try:
