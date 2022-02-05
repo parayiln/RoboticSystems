@@ -13,7 +13,7 @@ class buss(object):
     def write(self,message):
         with self.lock.gen_wlock ():
             self.message = message
-            print(message)
+            print("message",message)
 
     def read(self):
         with self.lock.gen_rlock ():
