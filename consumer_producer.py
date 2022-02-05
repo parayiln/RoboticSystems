@@ -15,12 +15,10 @@ def producer(sense_bus, delay, sense):
 
 def consumer_producer(sense_bus, process_bus, delay, process):
     while True:
-        print("enterd cp")
-        data_read = sense_bus.read()
-        data_pocess = process.Processing(data_read)
-        print("done")
-        print(data_process)
-        process_bus.write(data_process)
+        data_read_cp = sense_bus.read()
+        data_pocess_cp = process.Processing(data_read)
+        print(type(data_process_cp))
+        process_bus.write(data_process_cp)
         time.sleep(delay)
 
 
@@ -28,7 +26,6 @@ def consumer(process_bus, delay, control):
     while True:
         print("moving")
         data_process = process_bus.read()
-        print(type(data_pocess))
         control.move(data_pocess)
         time.sleep(delay)
 
