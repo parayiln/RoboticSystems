@@ -35,9 +35,9 @@ def consumer(process_bus, delay):
 if __name__ == "__main__":
     sense_bus = buss()
     process_bus = buss()
-    sense_delay=.5
-    process_delay=.5
-    control_delay=.5
+    sense_delay=.05
+    process_delay=.05
+    control_delay=.05
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             eSense = executor.submit(producer, sense_bus, sense_delay)
