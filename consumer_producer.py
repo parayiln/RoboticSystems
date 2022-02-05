@@ -34,14 +34,14 @@ def consumer(buss, delay):
 
 if __name__ == "__main__":
     sense = Sensing()
-    process = Interpretation()
-    control = Controller()
+    process = Interpretation(sense)
+    control = Controller(process)
     sense_bus = buss([1, 1, 1])
     process_bus = buss(0)
 
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            eSense = executor.submit(producer, .3, sense_bus, sense)
+            eSense = executor.submit(producer,.3, sense_bus, sense)
             eProcess = executor.submit(consumer_producer,.3, sense_bus, process_bus, process)
             eControl = executor.submit(consumer,.3, process_bus, control)
         # eSense.result()
