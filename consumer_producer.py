@@ -36,7 +36,7 @@ if __name__ == "__main__":
     sense = Sensing()
     process = Interpretation(sense)
     control = Controller(process)
-    sense_bus = buss([0 0 0])
+    sense_bus = buss([0, 0, 0])
     process_bus = buss(0)
     sense_delay=.1
     process_delay=.1
