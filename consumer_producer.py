@@ -13,10 +13,10 @@ def producer(sense_bus, delay, sense):
         sense_bus.write(data_read)
         time.sleep(delay)
 
-def consumer_producer(sense_bus, process_bus, delay, process):
+def consumer_producer(sense_bus, process_bus, delay, infer):
     while True:
         data_read_cp = sense_bus.read()
-        data_pocess_cp = process.Processing(data_read)
+        data_pocess_cp = infer.Processing(data_read)
         print(type(data_process_cp))
         process_bus.write(data_process_cp)
         time.sleep(delay)
@@ -32,9 +32,13 @@ def consumer(process_bus, delay, control):
 
 if __name__ == "__main__":
     sense = Sensing()
-    process = Interpretation()
+    infer = Interpretation()
     control = Controller()
-    sense_bus = buss([0, 0, 0])
+    adc_value_list = []
+    adc_value_list.append(0)
+    adc_value_list.append(0)
+    adc_value_list.append(0)
+    sense_bus = buss(adc_value_list)
     process_bus = buss(0)
     sense_delay=.5
     process_delay=.5
@@ -42,7 +46,7 @@ if __name__ == "__main__":
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             eSense = executor.submit(producer, sense_bus, sense_delay, sense)
-            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process_delay, process)
+            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process_delay, infer)
             eControl = executor.submit(consumer, process_bus, control_delay, control)
         # eSense.result()
     except:
