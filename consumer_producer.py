@@ -7,13 +7,13 @@ import time
 import concurrent.futures
 
 
-def producer(sense_bus, delay):
+def producer(sense_bus, delay, sense):
     while True:
         data_read = sense.sensing()
         sense_bus.write(data_read)
         time.sleep(delay)
 
-def consumer_producer(sense_bus, process_bus ,delay):
+def consumer_producer(sense_bus, process_bus, delay, process ):
     while True:
         print("enterd cp")
         data_read = sense_bus.read()
@@ -23,7 +23,7 @@ def consumer_producer(sense_bus, process_bus ,delay):
         time.sleep(delay)
 
 
-def consumer(process_bus, delay):
+def consumer(process_bus, delay, control):
     while True:
         print("moving")
         data_process = process_bus.read()
@@ -43,9 +43,9 @@ if __name__ == "__main__":
     control_delay=.5
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            eSense = executor.submit(producer, sense_bus, sense_delay)
-            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process_delay)
-            eControl = executor.submit(consumer, process_bus, control_delay)
+            eSense = executor.submit(producer, sense_bus, sense_delay, sense)
+            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process_delay, process)
+            eControl = executor.submit(consumer, process_bus, control_delay, control)
         # eSense.result()
     except:
         print("Something else went wrong")
