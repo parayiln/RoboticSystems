@@ -36,14 +36,16 @@ if __name__ == "__main__":
     sense = Sensing()
     process = Interpretation(sense)
     control = Controller(process)
-    sense_bus = buss([1, 1, 1])
+    sense_bus = buss(0)
     process_bus = buss(0)
-
+    sense_delay=1
+    process_delay=1
+    control_delay=1
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            eSense = executor.submit(producer, sense_bus, sense)
-            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process)
-            eControl = executor.submit(consumer, process_bus, control)
+            eSense = executor.submit(producer, sense_bus, sense_delay)
+            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process_delay)
+            eControl = executor.submit(consumer, process_bus, control_delay)
         # eSense.result()
     except:
         print("Something else went wrong")
