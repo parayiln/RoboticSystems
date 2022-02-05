@@ -27,7 +27,7 @@ def consumer(process_bus, delay):
     control = Controller()
     while True:
         data_process = process_bus.read()
-        control.move(data_pocess)
+        control.move(data_process)
         time.sleep(delay)
 
 
