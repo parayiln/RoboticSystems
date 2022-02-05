@@ -96,6 +96,7 @@ class Controller(object):
         return angle_steer
 # function for control - sensing integration
     def move(self,dist):
+        print("enter")
         distance=dist
         self.control(distance*self.scaling_factor)
         time.sleep(.05)
