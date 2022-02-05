@@ -34,21 +34,21 @@ class Sensing(object):
         adc_value_list.append(self.chn_2.read())
         return adc_value_list
 
-class Interpretation(Sensing):
+class Interpretation(object):
     # take arguments for sensitivity and polarity
     def __init__(self, ref_polarity = 1, ref_sensitivity = 1000):
         # polarity 1 means the line the car is following is darker than the surrounding.
         #change polarity to 0 if the car is following a lighter line.
         self.polarity = ref_polarity
         self.sensitivity = ref_sensitivity
-        self.sense=Sensing()
+        # self.sense=Sensing()
 
-    def caliberation(self):
+    def caliberation(self,data):
         print("please hold against the light surface")
-        light_values = self.sense.sensing()
+        light_values = data
         average_light =(light_values[0]+light_values[1]+light_values[2])/3
         print("Thank you ! please hold against the dark surface")
-        dark_values = self.sense.sensing()
+        dark_values = data
         average_dark =(dark_values[0]+dark_values[1]+dark_values[2])/3
         cali_values= (average_dark+average_light)/2
         self.sensitivity=cali_values
@@ -84,10 +84,10 @@ class Interpretation(Sensing):
         return distance
 
 
-class Controller(Interpretation):
+class Controller(object):
     def __init__(self, scaling = -40):
         self.sense=Sensing(500)
-        self.infer = Interpretation(self.sense)
+        # self.infer = Interpretation(self.sense)
         self.scaling_factor=-40
         self.motor =motor_command.Picarx()
 
@@ -117,9 +117,9 @@ if __name__=='__main__':
     print("Code for line following using the Grayscale module")
     data=sense.sensing()
 
-    infer=Interpretation(sense)
+    infer=Interpretation()
     dist=infer.Processing(data)
-    control= Controller(infer)
+    control= Controller()
 
     print("Select 2 to calibrate or 1 to use the defalut values ")
     flag_cali=input()

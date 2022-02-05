@@ -41,9 +41,9 @@ if __name__ == "__main__":
 
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
-            eSense = executor.submit(producer,.3, sense_bus, sense)
-            eProcess = executor.submit(consumer_producer,.3, sense_bus, process_bus, process)
-            eControl = executor.submit(consumer,.3, process_bus, control)
+            eSense = executor.submit(producer, sense_bus, sense)
+            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process)
+            eControl = executor.submit(consumer, process_bus, control)
         # eSense.result()
     except:
         print("Something else went wrong")
