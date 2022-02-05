@@ -16,8 +16,8 @@ def producer(sense_bus, delay, sense):
 def consumer_producer(sense_bus, process_bus, delay, infer):
     while True:
         data_read_cp = sense_bus.read()
-        data_pocess_cp = infer.Processing([1,1,1])
-        # print(type(data_process_cp))
+        data_pocess_cp = infer.Processing(data_read)
+        print(type(data_process_cp))
         process_bus.write(data_process_cp)
         time.sleep(delay)
 
@@ -33,7 +33,6 @@ def consumer(process_bus, delay, control):
 if __name__ == "__main__":
     sense = Sensing()
     infer = Interpretation()
-    # print(infer.Processing([0,0,0]))
     control = Controller()
     sense_bus = buss([0, 0, 0])
     process_bus = buss(0)
