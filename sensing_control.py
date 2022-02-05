@@ -26,6 +26,7 @@ class Sensing(object):
         self.chn_1 = ADC("A1")
         self.chn_2 = ADC("A2")
         self.ref = ref
+        print("init sense")
 
 
     def sensing(self):

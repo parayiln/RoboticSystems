@@ -174,7 +174,7 @@ class Picarx(object):
 
     def cleanup(self):
         self.stop()
-        print("excited code")
+        print("excited code motor_command")
 
 
 
