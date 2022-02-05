@@ -13,7 +13,8 @@ def producer(sense_bus, delay, sense):
         sense_bus.write(data_read)
         time.sleep(delay)
 
-def consumer_producer(sense_bus, process_bus, delay, infer):
+def consumer_producer(sense_bus, process_bus, delay):
+    infer = Interpretation()
     while True:
         data_read_cp = sense_bus.read()
         data_pocess_cp = infer.Processing(data_read)
@@ -22,7 +23,8 @@ def consumer_producer(sense_bus, process_bus, delay, infer):
         time.sleep(delay)
 
 
-def consumer(process_bus, delay, control):
+def consumer(process_bus, delay):
+    control = Controller()
     while True:
         print("moving")
         data_process = process_bus.read()
@@ -32,8 +34,6 @@ def consumer(process_bus, delay, control):
 
 if __name__ == "__main__":
     sense = Sensing()
-    infer = Interpretation()
-    control = Controller()
     sense_bus = buss([0, 0, 0])
     process_bus = buss(0)
     sense_delay=.5
@@ -42,8 +42,8 @@ if __name__ == "__main__":
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             eSense = executor.submit(producer, sense_bus, sense_delay, sense)
-            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process_delay, infer)
-            eControl = executor.submit(consumer, process_bus, control_delay, control)
+            eProcess = executor.submit(consumer_producer, sense_bus, process_bus, process_delay)
+            eControl = executor.submit(consumer, process_bus, control_delay)
         # eSense.result()
     except:
         print("Something else went wrong")
