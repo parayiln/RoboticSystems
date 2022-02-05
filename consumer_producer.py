@@ -19,7 +19,7 @@ def consumer_producer(sense_bus, process_bus, delay, process):
         data_read = sense_bus.read()
         data_pocess = process.Processing(data_read)
         print("done")
-        print("process read", data_process)
+        print(data_process)
         process_bus.write(data_process)
         time.sleep(delay)
 
@@ -39,7 +39,7 @@ if __name__ == "__main__":
     control = Controller()
     sense_bus = buss([0, 0, 0])
     process_bus = buss(0)
-    sense_delay=.5
+    sense_delay=10
     process_delay=.5
     control_delay=.5
     try:
