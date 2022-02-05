@@ -17,7 +17,6 @@ def consumer_producer(sense_bus, process_bus, delay, process):
     while True:
         print("enterd cp")
         data_read = sense_bus.read()
-        print("sbdsdkds")
         data_pocess = process.Processing(data_read)
         print("process read", data_process)
         process_bus.write(data_process)
@@ -35,8 +34,8 @@ def consumer(process_bus, delay, control):
 
 if __name__ == "__main__":
     sense = Sensing()
-    process = Interpretation(sense)
-    control = Controller(process)
+    process = Interpretation()
+    control = Controller()
     sense_bus = buss([0, 0, 0])
     process_bus = buss(0)
     sense_delay=.5
