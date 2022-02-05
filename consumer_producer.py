@@ -28,7 +28,7 @@ def consumer(process_bus, delay, control):
     while True:
         print("moving")
         data_process = process_bus.read()
-        print(data_pocess)
+        print(type(data_pocess)
         control.move(data_pocess)
         time.sleep(delay)
 
