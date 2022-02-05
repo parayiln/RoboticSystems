@@ -65,8 +65,12 @@ camera_linefolow.py:
 Week 4 codes Modifications
 *********************************************
 buss.py
-- has read, write methods and messages .
+- has read, write methods, which reads and writes messages .
 
 consumer_producer.py
-- has three types of functions: producer, consumer_producer and consumer.
-- has three threads which run parallel
+- it has three types of functions: producer, consumer_producer and consumer.
+- Has threading to run all the 3 functions in parallel
+
+************************************************
+Week 5 codes Modifications
+*********************************************
