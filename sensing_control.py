@@ -86,7 +86,6 @@ class Interpretation(Sensing):
 
 class Controller(Interpretation):
     def __init__(self, scaling = -40):
-        print("enter control")
         self.sense=Sensing(500)
         self.infer = Interpretation(self.sense)
         self.scaling_factor=-40
@@ -103,8 +102,8 @@ class Controller(Interpretation):
         self.motor.forward(30)
         time.sleep(.05)
 
-    def stop(self):
-        self.motor.stop()
+    # def stop(self):
+    #     self.motor.stop()
 
 
 
