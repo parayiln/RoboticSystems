@@ -25,7 +25,6 @@ def consumer_producer(sense_bus, process_bus, delay):
 
 def consumer(process_bus, delay):
     control = Controller()
-    # atexit.register(control.stop())
     while True:
         data_process = process_bus.read()
         control.move(data_process)
@@ -38,6 +37,8 @@ if __name__ == "__main__":
     sense_delay=1
     process_delay=1
     control_delay=1
+    control = Controller()
+    atexit.register(control.stop())
     try:
         with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
             eSense = executor.submit(producer, sense_bus, sense_delay)
