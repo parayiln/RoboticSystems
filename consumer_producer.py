@@ -20,7 +20,7 @@ def consumer_producer(sense_bus, process_bus, delay):
         data_read_cp = sense_bus.read()
         data_pocess_cp = infer.Processing([0,0,0])
         print(type(data_process_cp))
-        process_bus.write(.5)
+        process_bus.write(data_process_cp)
         time.sleep(delay)
 
 
