@@ -39,7 +39,7 @@ Class Sensing:
 - obtains the reading from grayscale module as a list called adc_value_list.
 
 class Interpretation:
-- taken in the value sensing class values are return the approximate position of car.
+- takes in the value sensing class values are return the approximate position of car.
 - Also has a function to calibrate the sensor reading (Highly recommended when trying on new surfaces!)
 - Sensitivity defines the threshold for dark vs light.
 - position is estimated based on which sensor reading is from light or dark region.
@@ -69,4 +69,4 @@ buss.py
 
 consumer_producer.py
 - has three types of functions: producer, consumer_producer and consumer.
-- has three threads which run parallelly
+- has three threads which run parallel
