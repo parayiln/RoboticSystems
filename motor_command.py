@@ -150,6 +150,7 @@ class Picarx(object):
             self.set_motor_speed(2, speed)
 
     def forward(self,speed):
+        print("moving forward")
         current_angle = self.dir_current_angle
         if current_angle != 0:
             abs_current_angle = abs(current_angle)

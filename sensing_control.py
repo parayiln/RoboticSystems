@@ -53,8 +53,7 @@ class Interpretation(object):
         cali_values= (average_dark+average_light)/2
         self.sensitivity=cali_values
 
-    def Processing(self,data):
-        print("enter proc")
+    def processing(self,data):
         adc_values=data
         label=adc_values
         ####### label the values as dark or light ############
@@ -82,7 +81,6 @@ class Interpretation(object):
         else:
             distance =0
             print("I cannot see any line - moving straight blindly. Please guide this blind car to a line, Thankyou!")
-        print("return value", distance)
         return distance
 
 
@@ -121,7 +119,7 @@ if __name__=='__main__':
     data=sense.sensing()
 
     infer=Interpretation()
-    dist=infer.Processing(data)
+    dist=infer.processing(data)
     control= Controller()
 
     print("Select 2 to calibrate or 1 to use the defalut values ")
