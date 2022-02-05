@@ -54,7 +54,6 @@ class Interpretation(object):
         self.sensitivity=cali_values
 
     def Processing(self,data):
-        print("enteredededede")
         adc_values=data
         label=adc_values
         ####### label the values as dark or light ############
@@ -82,6 +81,7 @@ class Interpretation(object):
         else:
             distance =0
             print("I cannot see any line - moving straight blindly. Please guide this blind car to a line, Thankyou!")
+        print(distance)
         return distance
 
 
