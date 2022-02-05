@@ -10,7 +10,6 @@ import concurrent.futures
 def producer(buss, delay):
     while True:
         data_read = sense.sensing()
-        print(data_read)
         sense_bus.write(data_read)
         time.sleep(delay)
 
@@ -26,6 +25,7 @@ def consumer(buss, delay):
     while True:
         print("moving")
         data_process = process_bus.read()
+        print(data_pocess)
         control.move(data_pocess)
         time.sleep(delay)
 
