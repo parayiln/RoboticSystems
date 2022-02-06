@@ -2,13 +2,19 @@
 
 import sys
 import atexit
-sys.path.append(r'/home/nidhi/RoboticSystems/lib')
+try:
+    sys.path.append(r'/home/nidhi/RoboticSystems/lib')
+    from pin import Pin
+except ImportError:
+    sys.path.append(r'/home/nidhi/intro2/RoboticSystems/lib')
+    print ("This computer does not appear to be a PiCar -X system (ezblock is not present). Shadowing hardware calls with substitute functions ")
+    from sim_ezblock import *
 from picarx_improved import Picarx
 import time
 import numpy
 from ultrasonic import Ultrasonic
 
-class Sensing(object):
+class SensingUltra(object):
     def __init__(self, trig_pin = Pin("D2") , echo_pin = Pin("D3"), timeout=0.02):
         self.trig = trig
         self.echo = echo
@@ -19,7 +25,7 @@ class Sensing(object):
         dist_value=ultra_sonic.read()
         return dist_value
 
-class Interpretation(object):
+class InterpretationUltra(object):
     # take arguments for sensitivity and polarity
     def __init__(self, ref_TooClose = 25):
         self.TooClose = ref_TooClose
@@ -43,7 +49,7 @@ class Interpretation(object):
         return close
 
 
-class Controller(object):
+class ControllerUltra(object):
     def __init__(self):
         self.sense=Sensing()
         # self.infer = Interpretation(self.sense)

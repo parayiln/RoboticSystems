@@ -1,10 +1,9 @@
 # week 5
 
 import sys
-sys.path.append(r'/home/nidhi/RoboticSystems/lib/')
 from sensing_control import Sensing, Interpretation, Controller
 import rossros as ros
-from sensing_control_ultrsonic import SensingUltra, InterpretationUltra, ControllerUltra
+from sensing_control_ultasonic import SensingUltra, InterpretationUltra, ControllerUltra
 
 
 
