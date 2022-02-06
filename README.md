@@ -74,3 +74,22 @@ consumer_producer.py
 ************************************************
 Week 5 codes Modifications
 *********************************************
+Introducing rossros.py for Bus and Consumer-Producer
+
+rossros.py
+- developed by Prof. Hatton.
+- contains Class Buss which can read and write messages
+- Contains Class producer, consumer and Condumer-Producer.
+  - Producer : takes in the Producer function (usually sensing), sensor bus, delay, termination bus and write the values to the sensor bus.
+  - ConsumerProducer : takes in the ConsumerProducer  function (usually processing sensed data), sensor bus, processor bus,  delay, termination bus and reads the data from sensor bus to process and write it into the processor bus
+  - Consumer : takes in the Consumer function (usually function to be executed ), processor bus,  delay, termination bus and reads the data  processor bus and executes action.
+
+  sensing_control_ultrsonic.py
+  - Has three classes sensing, interpretation and control similar to sensing_control.py
+  - The sensing class reads the ultrasonic values.
+  - Intrepretation class the provision to calibrate close distance value. The default value is 25. Processing method checks if the value is less that close distance and value and returns 0 or 1.
+  - Control : check the close distance value and stops the car if its 0 else move forward with 30 speed.
+
+  concurrency.py
+  - Similar to the consumer_producer.py
+  - uses the class from rossros.py and sensing_control_ultrsonic.py to implement threading
